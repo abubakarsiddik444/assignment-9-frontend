@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+﻿# 🐾 PetAdopt — Pet Adoption Platform (Client)
+
+A full-stack **Pet Adoption Platform** built with **Next.js (App Router)** and **Better Auth**. Users can browse pets of every kind, view detailed profiles, submit adoption requests, and manage their listings and requests from a dedicated dashboard.
+
+## Project Name
+
+**PetAdopt**
+
+## Purpose
+
+PetAdopt connects adoptable pets with caring families. Pet owners and shelters can list pets (dogs, cats, birds, rabbits, hamsters and more), while adopters can explore available pets, view full details, and submit adoption requests. Owners approve or reject requests, and once approved the pet is automatically marked as adopted.
+
+## Live URL
+
+> 🔗 Add your deployed client URL here (e.g. `https://petadopt.vercel.app`)
+
+## Key Features
+
+- 🔐 **Secure authentication** with Better Auth — email/password registration (with full password validation) and **Google login**. Session tokens are stored in HTTPOnly cookies, so logged-in users are never redirected on a private-route reload.
+- 🐕 **Browse & adopt** — view all pets as cards, open a detailed profile, and submit an adoption request with a pickup date and message.
+- 🔍 **Search, filter & sort** — search pets by name, filter by species (Dog, Cat, Bird, Rabbit, Hamster, Parrot, Fish, Ferret, Guinea Pig, Tortoise & more) using MongoDB `$regex` / `$in`, and sort by fee or date.
+- 🛠️ **Owner dashboard** — add, update, view and delete pet listings, plus live stats (total / available / adopted).
+- 📩 **Request management** — owners approve or reject adoption requests in a modal; approved pets become adopted and further requests are blocked. Adopters can track and cancel their own requests.
+- 🌗 **Dark / light theme** toggle and smooth **Framer Motion** animations.
+- 📱 **Fully responsive** design for mobile, tablet and desktop with a custom 404 page and toast notifications (no `alert()`).
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router), React 19
+- **Styling:** Tailwind CSS v4
+- **Auth:** Better Auth (email/password + Google OAuth)
+- **Icons:** react-icons
+- **Animations:** Framer Motion
+- **Toasts:** react-hot-toast
+- **HTTP:** axios
+
+## NPM Packages Used
+
+| Package | Purpose |
+| --- | --- |
+| `next` | React framework with App Router |
+| `react` / `react-dom` | UI library |
+| `better-auth` | Authentication (sessions, HTTPOnly cookies, Google login) |
+| `axios` | HTTP requests to the backend API |
+| `react-hot-toast` | Toast notifications |
+| `framer-motion` | Animations |
+| `react-icons` | Icons |
+| `tailwindcss` / `@tailwindcss/postcss` | Styling |
 
 ## Getting Started
 
-First, run the development server:
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Environment variables
+
+Create a `.env` file in the project root:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+(Add your Firebase config vars here when you enable Google login on the backend.)
+
+### 3. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+> The backend server must be running on `http://localhost:5000` — see the `assignment-9-backend` README.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Folder Structure
 
-## Learn More
+```text
+src/
+├── app/                    # App Router pages & layouts
+│   ├── all-pets/           # /all-pets (search, filter, sort)
+│   ├── pets/[id]/          # /pets/:id (details + adoption form)
+│   ├── login/  register/   # authentication pages
+│   ├── dashboard/          # add-pet, my-listings, my-requests, update-pet
+│   ├── layout.js           # root layout (providers, navbar, footer)
+│   └── not-found.js        # custom 404 page
+├── components/
+│   ├── Shared/  Home/  Pets/  Dashboard/
+├── routes/PrivateRoute.jsx # guards private pages
+├── providers/AuthProvider.jsx
+├── lib/auth-client.js      # Better Auth client
+├── hooks/                  # useAuth, useAxiosSecure, useAxiosPublic
+├── api/                    # petApi, requestApi
+└── utils/toastConfig.js
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run dev      # start dev server
+npm run build    # production build
+npm run start    # run production build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Copyright © 2026 PetAdopt. All rights reserved.
