@@ -17,7 +17,7 @@ export default function DashboardSidebar() {
 
   return (
     <aside className="shrink-0 lg:w-64">
-      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-gradient-to-b from-[#1b2b54] via-[#16213e] to-[#0f1a33] text-white shadow-xl ring-1 ring-white/10">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-linear-to-b from-[#1b2b54] via-[#16213e] to-[#0f1a33] text-white shadow-xl ring-1 ring-white/10">
         {/* Decorative glows */}
         <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-teal-500/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-12 -left-8 h-40 w-40 rounded-full bg-rose-500/10 blur-3xl" />
@@ -25,7 +25,7 @@ export default function DashboardSidebar() {
         {/* Brand header */}
         <div className="relative flex items-center justify-between gap-2 border-b border-white/10 px-5 py-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-teal-600 text-white shadow-md">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-teal-400 to-teal-600 text-white shadow-md">
               <FaPaw className="text-lg" />
             </div>
             <div className="leading-tight">
@@ -53,7 +53,7 @@ export default function DashboardSidebar() {
                 href={link.href}
                 className={`group relative flex shrink-0 items-center gap-3 overflow-hidden rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
                   active
-                    ? "bg-gradient-to-r from-teal-500 to-teal-600 text-white shadow-lg shadow-teal-900/40"
+                    ? "bg-linear-to-r from-teal-500 to-teal-600 text-white shadow-lg shadow-teal-900/40"
                     : "text-white/70 hover:bg-white/10 hover:text-white"
                 }`}
               >
@@ -80,7 +80,7 @@ export default function DashboardSidebar() {
               className="h-9 w-9 rounded-full object-cover ring-2 ring-teal-400/40"
             />
           ) : (
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-teal-400 to-teal-600 text-sm font-black text-white ring-2 ring-teal-400/40">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-linear-to-br from-teal-400 to-teal-600 text-sm font-black text-white ring-2 ring-teal-400/40">
               {(user?.name || "U").charAt(0).toUpperCase()}
             </div>
           )}
