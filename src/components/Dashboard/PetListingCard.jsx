@@ -14,7 +14,7 @@ const statusStyles = {
   pending: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
 };
 
-export default function PetListingCard({ pet, onDelete }) {
+export default function PetListingCard({ pet, onDelete, onDecision }) {
   const [showRequests, setShowRequests] = useState(false);
   const [confirming, setConfirming] = useState(false);
 
@@ -98,7 +98,7 @@ export default function PetListingCard({ pet, onDelete }) {
         <RequestsModal
           pet={pet}
           onClose={() => setShowRequests(false)}
-          onDecision={() => {}}
+          onDecision={onDecision}
         />
       )}
     </>
