@@ -26,13 +26,13 @@ export default function Banner() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/all-pets"
-              className="h-12 rounded-lg bg-teal-700 px-6 text-sm font-black text-white transition hover:bg-teal-800"
+              className="inline-flex h-12 items-center justify-center rounded-lg bg-teal-700 px-7 text-sm font-bold text-white shadow-sm transition hover:bg-teal-800"
             >
               Adopt Now
             </Link>
             <Link
               href="/dashboard/add-pet"
-              className="h-12 rounded-lg border border-slate-300 px-6 text-sm font-black text-slate-700 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-white/10"
+              className="inline-flex h-12 items-center justify-center rounded-lg border border-slate-300 bg-white px-7 text-sm font-bold text-slate-800 transition hover:border-slate-400 hover:bg-slate-50 dark:border-slate-600 dark:bg-transparent dark:text-slate-200 dark:hover:bg-white/10"
             >
               Add a Pet
             </Link>
