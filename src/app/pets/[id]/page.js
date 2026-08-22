@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { FaMapMarkerAlt, FaPaw, FaVenusMars, FaHeart, FaSyringe, FaShieldAlt, FaUser } from "react-icons/fa";
 import { getPetById } from "@/api/petApi";
 import { useAuth } from "@/hooks/useAuth";
@@ -13,17 +13,16 @@ import { showError } from "@/utils/toastConfig";
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1100&q=80";
 
-export default function PetDetailsPage() {
+function PetDetails() {
   const { id } = useParams();
+  const searchParams = useSearchParams();
   const { user, isPending } = useAuth();
   const [pet, setPet] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
   // Adopt mode is active when the URL has ?adopt=1 (from the "Adopt Now" button).
   // Opening with plain "View Details" shows only the pet details, without the adoption form.
-  const [adoptMode] = useState(
-    () => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("adopt") === "1"
-  );
+  const adoptMode = searchParams.get("adopt") === "1";
 
   useEffect(() => {
     let active = true;
@@ -220,5 +219,13 @@ function InfoItem({ icon, label, value }) {
         <p className="text-sm font-bold">{value}</p>
       </div>
     </div>
+  );
+}
+
+export default function PetDetailsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[50vh]" />}>
+      <PetDetails />
+    </Suspense>
   );
 }
