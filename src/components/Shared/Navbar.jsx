@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FiMenu, FiX, FiSun, FiMoon, FiLogOut } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon, FiLogOut, FiChevronDown, FiGrid, FiSettings, FiArrowLeft } from "react-icons/fi";
 import { FaPaw } from "react-icons/fa";
 import { useAuth } from "@/hooks/useAuth";
 import { authClient } from "@/lib/auth-client";
@@ -20,12 +20,30 @@ export default function Navbar() {
   const router = useRouter();
   const [theme, setTheme] = useState("light");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("petadopt-theme") || "light";
     setTheme(saved);
     document.documentElement.classList.toggle("dark", saved === "dark");
   }, []);
+
+  // Close the profile dropdown when clicking outside it
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!e.target.closest("[data-profile-menu]")) {
+        setProfileOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Close menus when navigating
+  useEffect(() => {
+    setProfileOpen(false);
+    setMenuOpen(false);
+  }, [pathname]);
 
   function toggleTheme() {
     const next = theme === "light" ? "dark" : "light";
@@ -77,24 +95,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-
-          {user && (
-            <div className="ml-1 flex items-center gap-1">
-              {dashboardLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`rounded-lg px-3 py-2 transition ${
-                    isActive(link.href)
-                      ? "bg-teal-700 text-white"
-                      : "text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          )}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
@@ -108,26 +108,73 @@ export default function Navbar() {
           </button>
 
           {user ? (
-            <div className="flex items-center gap-2">
-              {user.image ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={user.image}
-                  alt={user.name}
-                  className="h-9 w-9 rounded-full object-cover"
-                />
-              ) : (
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-700 font-bold text-white">
-                  {(user.name || "U").charAt(0).toUpperCase()}
-                </div>
-              )}
+            <div className="relative flex items-center gap-1.5" data-profile-menu>
               <button
                 type="button"
-                onClick={handleLogout}
-                className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-bold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                onClick={() => setProfileOpen((open) => !open)}
+                aria-label="Settings"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-white/10"
               >
-                Logout
+                <FiSettings />
               </button>
+
+              <button
+                type="button"
+                onClick={() => setProfileOpen((open) => !open)}
+                className="flex items-center gap-2 rounded-full py-1 pl-1 pr-2 transition hover:bg-slate-100 dark:hover:bg-white/10"
+              >
+                {user.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.image}
+                    alt={user.name}
+                    className="h-9 w-9 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-700 text-sm font-bold text-white">
+                    {(user.name || "U").charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <span className="hidden max-w-22.5 truncate text-sm font-bold text-slate-700 lg:block dark:text-slate-200">
+                  {user.name}
+                </span>
+                <FiChevronDown
+                  className={`text-slate-500 transition-transform dark:text-slate-400 ${
+                    profileOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {profileOpen && (
+                <div className="absolute right-0 top-full z-50 mt-2 w-64 overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-black/10 dark:bg-[#1c2130] dark:ring-white/10">
+                  <div className="px-4 py-3">
+                    <p className="truncate text-sm font-black text-slate-800 dark:text-white">
+                      {user.name}
+                    </p>
+                    <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+                      {user.email}
+                    </p>
+                  </div>
+                  <div className="border-t border-slate-100 dark:border-white/10" />
+                  <div className="p-2">
+                    <Link
+                      href="/dashboard/my-listings"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10"
+                    >
+                      <FiGrid className="text-base text-teal-600 dark:text-teal-400" />
+                      Dashboard
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg bg-amber-400 px-3 py-2 text-sm font-black text-slate-900 transition hover:bg-amber-500"
+                    >
+                      <FiArrowLeft className="text-base" />
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : isPending ? (
             <span className="px-2 text-sm text-slate-500">Checking...</span>
