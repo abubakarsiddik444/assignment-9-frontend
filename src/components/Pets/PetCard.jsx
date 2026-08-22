@@ -96,7 +96,7 @@ export default function PetCard({ pet }) {
             </span>
           ) : (
             <Link
-              href={user ? `/pets/${pet._id}` : `/login?redirect=${encodeURIComponent(`/pets/${pet._id}`)}`}
+              href={user ? `/pets/${pet._id}?adopt=1` : `/login?redirect=${encodeURIComponent(`/pets/${pet._id}?adopt=1`)}`}
               className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-teal-800"
             >
               Adopt Now

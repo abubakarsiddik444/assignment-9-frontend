@@ -19,6 +19,11 @@ export default function PetDetailsPage() {
   const [pet, setPet] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  // Adopt mode is active when the URL has ?adopt=1 (from the "Adopt Now" button).
+  // Opening with plain "View Details" shows only the pet details, without the adoption form.
+  const [adoptMode] = useState(
+    () => typeof window !== "undefined" && new URLSearchParams(window.location.search).get("adopt") === "1"
+  );
 
   useEffect(() => {
     let active = true;
@@ -67,7 +72,7 @@ export default function PetDetailsPage() {
           ← Back to All Pets
         </Link>
 
-        <div className="mt-6 grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className={`mt-6 grid gap-8 ${adoptMode ? "lg:grid-cols-[1.15fr_0.85fr]" : "lg:grid-cols-1"}`}>
           {/* Pet details */}
           <div className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#161922] dark:ring-white/10">
             <div className="relative h-80">
@@ -136,7 +141,8 @@ export default function PetDetailsPage() {
             </div>
           </div>
 
-          {/* Adoption side panel */}
+          {/* Adoption side panel (only shown in adopt mode) */}
+          {adoptMode && (
           <div>
             {isAdopted ? (
               <div className="rounded-2xl bg-rose-50 p-6 text-center ring-1 ring-rose-200 dark:bg-rose-500/10 dark:ring-rose-500/30">
@@ -198,6 +204,7 @@ export default function PetDetailsPage() {
               <AdoptionForm pet={pet} user={user} />
             )}
           </div>
+          )}
         </div>
       </div>
     </div>

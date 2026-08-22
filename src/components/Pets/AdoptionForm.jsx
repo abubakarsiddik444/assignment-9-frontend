@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { FaPaw } from "react-icons/fa";
+import Link from "next/link";
+import { FaPaw, FaCheckCircle } from "react-icons/fa";
 import { createAdoptionRequest } from "@/api/requestApi";
-import { showSuccess, showError } from "@/utils/toastConfig";
+import { showError } from "@/utils/toastConfig";
 
 export default function AdoptionForm({ pet, user, onSubmitted }) {
   const [form, setForm] = useState({ pickupDate: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -20,7 +22,7 @@ export default function AdoptionForm({ pet, user, onSubmitted }) {
     setIsSubmitting(true);
     try {
       await createAdoptionRequest(pet._id, form);
-      showSuccess("Adoption request submitted successfully!");
+      setSubmitted(true);
       setForm({ pickupDate: "", message: "" });
       onSubmitted?.();
     } catch (error) {
@@ -31,6 +33,7 @@ export default function AdoptionForm({ pet, user, onSubmitted }) {
   }
 
   return (
+    <>
     <form
       onSubmit={handleSubmit}
       className="space-y-4 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5 dark:bg-[#161922] dark:ring-white/10"
@@ -80,7 +83,30 @@ export default function AdoptionForm({ pet, user, onSubmitted }) {
       >
         {isSubmitting ? "Submitting..." : "Adopt Now"}
       </button>
-    </form>
+      </form>
+
+      {submitted && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+          <div className="w-full max-w-sm rounded-2xl bg-[#161922] p-8 text-center shadow-2xl ring-1 ring-white/10">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-teal-500/20">
+              <FaCheckCircle className="text-4xl text-teal-400" />
+            </div>
+            <h3 className="mt-4 text-xl font-black text-white">Request Submitted!</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              Your adoption request for{" "}
+              <span className="font-bold text-teal-300">{pet.name}</span> has been sent to the
+              owner. You can track its status in My Requests.
+            </p>
+            <Link
+              href="/dashboard/my-requests"
+              className="mt-6 inline-block w-full rounded-lg border border-teal-500/40 px-6 py-3 text-sm font-bold text-teal-300 transition hover:bg-teal-500/10"
+            >
+              View My Requests
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

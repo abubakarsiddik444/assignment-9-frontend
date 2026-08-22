@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { FiMenu, FiX, FiSun, FiMoon, FiLogOut, FiChevronDown, FiGrid, FiSettings, FiArrowLeft } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon, FiLogOut, FiChevronDown, FiGrid, FiArrowLeft } from "react-icons/fi";
 import { FaPaw } from "react-icons/fa";
 import { useAuth } from "@/hooks/useAuth";
 import { authClient } from "@/lib/auth-client";
@@ -109,15 +109,6 @@ export default function Navbar() {
 
           {user ? (
             <div className="relative flex items-center gap-1.5" data-profile-menu>
-              <button
-                type="button"
-                onClick={() => setProfileOpen((open) => !open)}
-                aria-label="Settings"
-                className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 text-slate-600 transition hover:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-white/10"
-              >
-                <FiSettings />
-              </button>
-
               <button
                 type="button"
                 onClick={() => setProfileOpen((open) => !open)}
