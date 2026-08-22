@@ -86,7 +86,7 @@ export default function PetCard({ pet }) {
         <div className="mt-auto flex gap-2 pt-5">
           <Link
             href={`/pets/${pet._id}`}
-            className="flex-1 rounded-lg bg-slate-950 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950"
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-slate-950 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950"
           >
             View Details
           </Link>
@@ -97,7 +97,7 @@ export default function PetCard({ pet }) {
           ) : (
             <Link
               href={user ? `/pets/${pet._id}` : `/login?redirect=${encodeURIComponent(`/pets/${pet._id}`)}`}
-              className="flex-1 rounded-lg bg-teal-700 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-teal-800"
+              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-teal-700 px-4 py-2.5 text-center text-sm font-bold text-white transition hover:bg-teal-800"
             >
               Adopt Now
             </Link>
