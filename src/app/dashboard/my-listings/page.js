@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { FaPaw, FaCheckCircle, FaHome } from "react-icons/fa";
 import { getMyListings, getDashboardStats, deletePet } from "@/api/petApi";
 import PetListingCard from "@/components/Dashboard/PetListingCard";
 import LoadingSpinner from "@/components/Shared/LoadingSpinner";
@@ -43,9 +44,27 @@ export default function MyListingsPage() {
   }
 
   const statCards = [
-    { label: "Total Listings", value: stats.total, color: "text-slate-900 dark:text-white" },
-    { label: "Available", value: stats.available, color: "text-emerald-600" },
-    { label: "Adopted", value: stats.adopted, color: "text-rose-600" },
+    {
+      label: "Total Listings",
+      value: stats.total,
+      icon: <FaPaw />,
+      iconBg: "bg-teal-100 text-teal-700 dark:bg-teal-500/15 dark:text-teal-300",
+      accent: "text-teal-700 dark:text-teal-300",
+    },
+    {
+      label: "Available",
+      value: stats.available,
+      icon: <FaCheckCircle />,
+      iconBg: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300",
+      accent: "text-emerald-600 dark:text-emerald-300",
+    },
+    {
+      label: "Adopted",
+      value: stats.adopted,
+      icon: <FaHome />,
+      iconBg: "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300",
+      accent: "text-rose-600 dark:text-rose-300",
+    },
   ];
 
   return (
@@ -54,11 +73,23 @@ export default function MyListingsPage() {
       <p className="mt-1 text-sm text-slate-500">Manage the pets you have listed for adoption.</p>
 
       {/* Stats */}
-      <div className="mt-5 grid grid-cols-3 gap-4">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {statCards.map((card) => (
-          <div key={card.label} className="rounded-2xl bg-white p-5 text-center shadow-sm ring-1 ring-black/5 dark:bg-[#161922] dark:ring-white/10">
-            <p className={`text-3xl font-black ${card.color}`}>{card.value}</p>
-            <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-slate-500">{card.label}</p>
+          <div
+            key={card.label}
+            className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 dark:bg-[#161922] dark:ring-white/10"
+          >
+            <div
+              className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl ${card.iconBg}`}
+            >
+              {card.icon}
+            </div>
+            <div>
+              <p className={`text-2xl font-black ${card.accent}`}>{card.value}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                {card.label}
+              </p>
+            </div>
           </div>
         ))}
       </div>
