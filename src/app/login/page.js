@@ -3,7 +3,8 @@
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FaPaw, FaGoogle } from "react-icons/fa";
+import { FaPaw } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { authClient } from "@/lib/auth-client";
 import { useAuth } from "@/hooks/useAuth";
@@ -133,7 +134,7 @@ function LoginForm() {
           disabled={isGoogleLoading}
           className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 py-3 text-sm font-bold transition hover:bg-slate-50 disabled:opacity-60 dark:border-slate-600 dark:hover:bg-white/5"
         >
-          <FaGoogle className="text-lg text-red-500" />
+          <FcGoogle className="text-xl" />
           {isGoogleLoading ? "Connecting..." : "Continue with Google"}
         </button>
 
