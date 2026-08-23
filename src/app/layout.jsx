@@ -22,6 +22,9 @@ export const metadata = {
   },
   description:
     "A full-stack pet adoption platform to browse pets, view detailed profiles, submit adoption requests and manage listings.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {
