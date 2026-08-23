@@ -29,7 +29,7 @@ or reject requests — all in one place.
 
 | | Feature | Description |
 |---|---|---|
-| 🔐 | **Authentication** | Email/password with full validation + **Google login** (Better Auth, HTTPOnly cookies) — logged-in users stay logged in on reload |
+| 🔐 | **Authentication** | Email/password with full validation + **Google login** — **JWT-based session tokens** (Better Auth) in HTTPOnly cookies; logged-in users stay logged in on reload |
 | 🔍 | **Search & Filter** | Search pets by name, filter by species, sort by fee/date, and paginate |
 | 📄 | **Pet Details** | Full profile — health, vaccination, fee, location & owner info |
 | 📨 | **Adoption Requests** | Submit with pickup date & message; track/cancel in My Requests |
@@ -43,7 +43,7 @@ or reject requests — all in one place.
 |---|---|
 | `next` | React framework (App Router) |
 | `react` | UI library |
-| `better-auth` | Authentication (email + Google OAuth) |
+| `better-auth` | Authentication — issues **JWT session tokens** in HTTPOnly cookies (email + Google OAuth) |
 | `axios` | HTTP requests to the backend API |
 | `react-hot-toast` | Toast notifications |
 | `framer-motion` | Animations |
