@@ -5,15 +5,7 @@ import { authClient } from "@/lib/auth-client";
 
 const AuthContext = createContext(null);
 
-/**
- * Global authentication provider.
- *
- * Manages the Better Auth session manually (with retries) so the session
- * check can never get stuck on "Checking..." — even if a navigation or a
- * StrictMode double-mount aborts the first request. The session token lives
- * in an HTTPOnly cookie, which is exactly what keeps logged-in users logged
- * in when a private route is reloaded.
- */
+
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [session, setSession] = useState(null);
