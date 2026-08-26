@@ -1,0 +1,16 @@
+# Files never uploaded to Vercel
+node_modules/
+.next/
+out/
+
+# Env files (Vercel env vars are used instead)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Git / editor
+.git/
+.vscode/*

@@ -80,6 +80,39 @@ src/
 └── utils/        # toastConfig
 ```
 
+## 🚀 Deploy to Vercel
+
+The frontend is a standard Next.js app — no extra config files are required.
+
+### 1. Push to GitHub
+
+```bash
+git init
+git add .
+git commit -m "Deploy frontend"
+git remote add origin <your-repo-url>
+git push -u origin main
+```
+
+### 2. Import into Vercel
+
+1. Go to [vercel.com/new](https://vercel.com/new) → **Import Git Repository** → select the frontend repo.
+2. Vercel auto-detects **Next.js** (Framework Preset: Next.js) — the build command is `npm run build`.
+3. Add the following **Environment Variable** (Settings → Environment Variables):
+
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_API_URL` | The deployed backend URL, e.g. `https://your-backend.vercel.app` |
+
+> `NEXT_PUBLIC_*` variables are inlined **at build time**, so after changing it you must redeploy.
+
+4. Click **Deploy**.
+
+### 3. Post-deploy
+
+- Make sure the backend's `CLIENT_URL` env var is set to this frontend URL, e.g. `https://your-frontend.vercel.app`.
+- Because the frontend and backend live on different origins, Better Auth is configured (server-side) to use `SameSite=None; Secure` session cookies over HTTPS so login persists across domains.
+
 ---
 
 <p align="center">Made with ❤️ · Copyright © 2026 PetAdopt</p>

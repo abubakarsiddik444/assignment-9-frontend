@@ -9,8 +9,9 @@ out/
 dist/
 dist-ssr/
 
-# Env files (keep secrets out of git)
+# Environment file (real values, local only) — never commit
 .env
+# Vercel CLI local config (contains a token) — never commit
 .env.local
 .env.*.local
 
@@ -25,3 +26,5 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+.vercel
