@@ -50,9 +50,11 @@ function LoginForm() {
   async function handleGoogle() {
     setIsGoogleLoading(true);
     try {
+      const callbackURL = new URL(redirect, window.location.origin).toString();
       const { error } = await authClient.signIn.social({
         provider: "google",
-        callbackURL: redirect,
+        callbackURL,
+        errorCallbackURL: `${window.location.origin}/login`,
       });
       if (error) {
         showError(

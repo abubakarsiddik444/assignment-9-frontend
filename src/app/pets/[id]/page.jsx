@@ -20,8 +20,9 @@ function PetDetails() {
   const [pet, setPet] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  // Adopt mode is active when the URL has ?adopt=1 (from the "Adopt Now" button).
-  // Opening with plain "View Details" shows only the pet details, without the adoption form.
+  
+
+  
   const adoptMode = searchParams.get("adopt") === "1";
 
   useEffect(() => {

@@ -8,10 +8,7 @@ const axiosSecure = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-/**
- * Axios instance for protected API requests.
- * `withCredentials` makes sure the HTTPOnly session cookie is sent along.
- */
+
 export default function useAxiosSecure() {
   return axiosSecure;
 }

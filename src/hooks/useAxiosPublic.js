@@ -7,9 +7,7 @@ const axiosPublic = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
-/**
- * Axios instance for public (non-authenticated) API requests.
- */
+
 export default function useAxiosPublic() {
   return axiosPublic;
 }
